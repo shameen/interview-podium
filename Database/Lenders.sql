@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Lenders]
+(
+	[Id] BIGINT NOT NULL PRIMARY KEY, 
+    [Name] NVARCHAR(250) NOT NULL
+)
