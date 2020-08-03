@@ -35,22 +35,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="public\favicon.ico" />
+    <Content Include="public\Group-2747.jpg" />
     <Content Include="public\index.html" />
-    <Content Include="public\logo192.png" />
-    <Content Include="public\logo512.png" />
     <Content Include="public\manifest.json" />
     <Content Include="public\robots.txt" />
     <Content Include="server.js" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
     <Content Include="src\App.css" />
     <Content Include="src\App.js" />
     <Content Include="src\App.test.js" />
+    <Content Include="src\CreateApplicantForm.js" />
     <Content Include="src\index.css" />
     <Content Include="src\index.js" />
-    <Content Include="src\logo.svg" />
+    <Content Include="src\MainContent.css" />
+    <Content Include="src\MainContent.js" />
+    <Content Include="src\Podium-logo%402x.png" />
     <Content Include="src\serviceWorker.js" />
     <Content Include="src\setupTests.js" />
-    <Content Include="package.json" />
-    <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\" />
