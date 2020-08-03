@@ -5,6 +5,6 @@ namespace PodiumInterview.Database
     public interface IDatabaseEntity
     {
         long Id { get; set; }
-        DateTime CreationDate { get; set; }
+        DateTimeOffset CreationDate { get; set; }
     }
 }

@@ -6,6 +6,6 @@ namespace PodiumInterview.Database
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTimeOffset CreationDate { get; set; }
     }
 }

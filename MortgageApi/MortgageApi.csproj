@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Database\Database.sqlproj" />
+    <ProjectReference Include="..\Database\Database.csproj" />
   </ItemGroup>
 
 
