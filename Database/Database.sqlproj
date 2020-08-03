@@ -11,8 +11,8 @@
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>Database</RootNamespace>
-    <AssemblyName>Database</AssemblyName>
+    <RootNamespace>PodiumInterview.Database</RootNamespace>
+    <AssemblyName>PodiumInterview.Database</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -56,10 +56,17 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="Models" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Applicants.sql" />
     <Build Include="MortgageProducts.sql" />
     <Build Include="Lenders.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Applicant.cs" />
+    <Compile Include="Models\Lender.cs" />
+    <Compile Include="Models\MortgageProduct.cs" />
+    <Compile Include="Models\IDatabaseEntity.cs" />
   </ItemGroup>
 </Project>
