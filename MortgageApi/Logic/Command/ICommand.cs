@@ -1,7 +1,12 @@
-﻿namespace PodiumInterview.MortgageApi.Logic.Command
+﻿using System.Threading.Tasks;
+
+namespace PodiumInterview.MortgageApi.Logic.Command
 {
+    /// <summary>
+    /// Self-contained executable piece of work, similar to the Command Pattern.
+    /// </summary>
     interface ICommand
     {
-        void Execute();
+        Task ExecuteAsync();
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
+using PodiumInterview.Database;
 using PodiumInterview.MortgageApi.Logic;
 using PodiumInterview.MortgageApi.Logic.Command;
 using PodiumInterview.MortgageApi.Logic.Query;
@@ -30,9 +31,10 @@ namespace PodiumInterview.MortgageApi.Controllers
             _applicantQuery = applicantQuery;
         }
 
-        [HttpPost]
+        [HttpPost, Route("")]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(ApiApplicantCreatedResult))]
         [SwaggerResponse(HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]
         public IActionResult SaveApplicantDetails([FromBody]CreateApplicantModel model)
         {
             //Validate
@@ -43,23 +45,37 @@ namespace PodiumInterview.MortgageApi.Controllers
 
             try
             {
-                //Save
+                //Save to DB
                 var newUserId = _idGenerator.GetRandomLong();
                 var saveCommand = new SaveApplicantCommand(model, newUserId);
                 saveCommand.Execute();
 
                 //Return
-                var fakeResult = new ApiApplicantCreatedResult
+                var result = new ApiApplicantCreatedResult
                 {
                     Success = true,
-                    UserId = null
+                    UserId = newUserId
                 };
-                return Ok(fakeResult);
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 return ApiServerError(ex.Message);
             }
+        }
+
+        [HttpPost, Route("{id}")]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Applicant))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]
+        public IActionResult GetApplicantDetails(long id)
+        {
+            var applicant = _applicantQuery.GetApplicant(id);
+
+            if (applicant == null)
+                return ApiValidationError(new [] {"Invalid Applicant ID specified"});
+
+            return Ok();
         }
     }
 }

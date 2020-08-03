@@ -14,7 +14,8 @@ namespace PodiumInterview.MortgageApi.Controllers
     public abstract class PodiumBaseController : ControllerBase
     {
         /// <summary>
-        /// Returns an API BadRequest error, including any <see cref="ModelStateDictionary">ModelState</see> errors.
+        /// Returns a "400 Bad Request" API error,
+        /// including any <see cref="ModelStateDictionary">ModelState</see> errors.
         /// </summary>
         [SwaggerResponse(HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
         public IActionResult ApiValidationError(IEnumerable<string> extraErrors = null)
@@ -31,6 +32,10 @@ namespace PodiumInterview.MortgageApi.Controllers
             return BadRequest(new ApiErrorResult(errors));
         }
 
+        /// <summary>
+        /// Returns a "500 Internal Server Error" API error.
+        /// </summary>
+        [SwaggerResponse(HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]
         public IActionResult ApiServerError(object additionalInfo = null)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, additionalInfo);

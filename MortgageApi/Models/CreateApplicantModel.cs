@@ -7,9 +7,9 @@ namespace PodiumInterview.MortgageApi.Models
 {
     public class CreateApplicantModel
     {
-        private string Email { get; set; }
-        private string FirstName { get; set; }
-        private string LastName { get; set; }
-        private DateTime DateOfBirth { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime? DateOfBirth { get; set; }
     }
 }
