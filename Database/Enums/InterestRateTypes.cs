@@ -1,6 +1,6 @@
 ﻿namespace PodiumInterview.Database
 {
-    public enum InterestRateType
+    public enum InterestRateTypes
     {
         Unknown = 0,
         Fixed = 1,

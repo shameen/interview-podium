@@ -50,7 +50,7 @@ namespace PodiumInterview.Database
                 Id = 1001,
                 CreationDate = DateTimeOffset.Now,
                 InterestRate = 2,
-                InterestRateType = InterestRateType.Variable,
+                InterestRateType = InterestRateTypes.Variable,
                 MaximumLoanToValue = 60,
                 LenderId = 1
             });
@@ -59,7 +59,7 @@ namespace PodiumInterview.Database
                 Id = 1002,
                 CreationDate = DateTimeOffset.Now,
                 InterestRate = 3,
-                InterestRateType = InterestRateType.Fixed,
+                InterestRateType = InterestRateTypes.Fixed,
                 MaximumLoanToValue = 60,
                 LenderId = 2
             });
@@ -68,7 +68,7 @@ namespace PodiumInterview.Database
                 Id = 1003,
                 CreationDate = DateTimeOffset.Now,
                 InterestRate = 4,
-                InterestRateType = InterestRateType.Variable,
+                InterestRateType = InterestRateTypes.Variable,
                 MaximumLoanToValue = 60,
                 LenderId = 3
             });

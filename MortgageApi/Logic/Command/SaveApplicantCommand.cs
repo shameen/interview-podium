@@ -9,10 +9,10 @@ namespace PodiumInterview.MortgageApi.Logic.Command
     public class SaveApplicantCommand : ICommand
     {
         private Applicant _applicantDb;
-        private readonly CreateApplicantModel _applicantModel;
+        private readonly CreateApplicantRequestModel _applicantModel;
         private readonly long _userId;
 
-        public SaveApplicantCommand(CreateApplicantModel applicantModel, long userId)
+        public SaveApplicantCommand(CreateApplicantRequestModel applicantModel, long userId)
         {
             _applicantModel = applicantModel;
             _userId = userId;

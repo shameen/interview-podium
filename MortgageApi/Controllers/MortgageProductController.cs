@@ -34,7 +34,7 @@ namespace PodiumInterview.MortgageApi.Controllers
         [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(IEnumerable<MortgageProduct>))]
         [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
         [SwaggerResponse((int)HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]
-        public async Task<IActionResult> GetMortgageProductsForApplicant(long applicantId, [FromBody] MortgageProductsQueryModel model)
+        public async Task<IActionResult> GetMortgageProductsForApplicant(long applicantId, [FromBody] MortgageProductQueryRequestModel model)
         {
             if (!ModelState.IsValid)
                 return ApiValidationError();

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PodiumInterview.MortgageApi.Models
 {
-    public class CreateApplicantModel
+    public class CreateApplicantRequestModel
     {
         public string Email { get; set; }
         public string FirstName { get; set; }
