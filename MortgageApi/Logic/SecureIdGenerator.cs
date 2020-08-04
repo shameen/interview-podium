@@ -22,8 +22,21 @@ namespace PodiumInterview.MortgageApi.Logic
             {
                 byte[] bytes = new byte[64];
                 rng.GetBytes(bytes);
-                return BitConverter.ToInt64(bytes);
+                var newLong = BitConverter.ToInt64(bytes);
+                return MakeLongMoreFriendly(newLong);
             }
+        }
+
+        /// <summary>
+        /// To make the generated number more friendly for Database identities + JavaScript
+        /// </summary>
+        private long MakeLongMoreFriendly(long n)
+        {
+            //Confusing to have a negative ID
+            n = Math.Abs(n);
+            //Stay below Javascript's maximum supported integer
+            const long MAX_SAFE_INTEGER = 9007199254740991;
+            return n % MAX_SAFE_INTEGER;
         }
     }
 }
