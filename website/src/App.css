@@ -8,3 +8,9 @@
   padding: 20px;
   background: white url("/Group-2747.jpg");
 }
+
+.header-logo-suffix {
+  color:white;
+  margin-left:1em;
+  text-transform: uppercase;
+}

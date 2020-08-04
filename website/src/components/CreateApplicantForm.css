@@ -1,0 +1,24 @@
+.CreateApplicantForm {
+    max-width:600px;
+}
+.CreateApplicantForm label {
+    display:block;
+    margin:0.5em 0;
+}
+.CreateApplicantForm input {
+    display:block;
+    min-width:50%;
+    padding:0.35em 0.5em;
+}
+@media screen and (max-width:768px) {
+    .CreateApplicantForm input {
+        width:100%;
+    }
+}
+.CreateApplicantForm .button.button-big {
+    font-size:1.1rem;
+    padding:0.35em 0.75em;
+}
+.CreateApplicantForm button[type=submit] {
+    cursor:pointer;
+}
