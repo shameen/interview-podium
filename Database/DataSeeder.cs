@@ -18,6 +18,7 @@ namespace PodiumInterview.Database
         public void Seed()
         {
             SeedLenders();
+            _dbContext.SaveChanges();
             SeedMortgageProducts();
             _dbContext.SaveChanges();
         }

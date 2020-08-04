@@ -28,7 +28,7 @@ namespace PodiumInterview.MortgageApi.Logic.Query
                 return new List<MortgageProduct>();
 
             //If LTV is not less than 90%, no products should be returned
-            var loanToValueRatio = _depositAmount / _propertyValue;
+            var loanToValueRatio = (_propertyValue - _depositAmount) / _propertyValue;
             bool isLtvTooHigh = loanToValueRatio > 0.9m;
             if (isLtvTooHigh)
                 return new List<MortgageProduct>();
@@ -36,7 +36,7 @@ namespace PodiumInterview.MortgageApi.Logic.Query
             using (var db = PodiumDbContextFactory.GetDbContext())
             {
                 return await db.MortgageProducts
-                    .Where(mp => mp.MaximumLoanToValue > loanToValueRatio)
+                    .Where(mp => mp.MaximumLoanToValue >= loanToValueRatio)
                     .ToListAsync();
             }
         }
