@@ -51,7 +51,7 @@ namespace PodiumInterview.Database
                 CreationDate = DateTimeOffset.Now,
                 InterestRate = 2,
                 InterestRateType = InterestRateType.Variable,
-                MinimumLoanToValue = 60,
+                MaximumLoanToValue = 60,
                 LenderId = 1
             });
             EnsureExistsMortgageProduct(new MortgageProduct()
@@ -60,7 +60,7 @@ namespace PodiumInterview.Database
                 CreationDate = DateTimeOffset.Now,
                 InterestRate = 3,
                 InterestRateType = InterestRateType.Fixed,
-                MinimumLoanToValue = 60,
+                MaximumLoanToValue = 60,
                 LenderId = 2
             });
             EnsureExistsMortgageProduct(new MortgageProduct()
@@ -69,7 +69,7 @@ namespace PodiumInterview.Database
                 CreationDate = DateTimeOffset.Now,
                 InterestRate = 4,
                 InterestRateType = InterestRateType.Variable,
-                MinimumLoanToValue = 60,
+                MaximumLoanToValue = 60,
                 LenderId = 3
             });
 

@@ -21,14 +21,11 @@ namespace PodiumInterview.MortgageApi.Controllers
     {
         private readonly ILogger<ApplicantController> _logger;
         private readonly IRandomNumberGenerator _idGenerator;
-        private readonly ApplicantQuery _applicantQuery;
 
-        public ApplicantController(ILogger<ApplicantController> logger, IRandomNumberGenerator idGenerator,
-            ApplicantQuery applicantQuery)
+        public ApplicantController(ILogger<ApplicantController> logger, IRandomNumberGenerator idGenerator)
         {
             _logger = logger;
             _idGenerator = idGenerator;
-            _applicantQuery = applicantQuery;
         }
 
         /// <summary>
@@ -45,6 +42,7 @@ namespace PodiumInterview.MortgageApi.Controllers
             {
                 return ApiValidationError();
             }
+            //TODO Future: Additional validation eg. Unique email
 
             try
             {
@@ -68,16 +66,19 @@ namespace PodiumInterview.MortgageApi.Controllers
         }
 
         /// <summary>
-        /// Retrieve an applicant
+        /// Retrieve an applicant by ID
         /// </summary>
-        /// <param name="id">Applicant ID</param>
-        [HttpGet, Route("{id}")]
+        [HttpGet, Route("{applicantId}")]
         [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(Applicant))]
         [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
         [SwaggerResponse((int)HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]
-        public IActionResult GetApplicantDetails(long id)
+        public async Task<IActionResult> GetApplicantDetails(long applicantId)
         {
-            var applicant = _applicantQuery.GetApplicant(id);
+            if (!ModelState.IsValid)
+                return ApiValidationError();
+
+            var getApplicant = new GetApplicantQuery(applicantId);
+            var applicant = await getApplicant.ExecuteAsync();
 
             if (applicant == null)
                 return ApiValidationError(new [] {"Invalid Applicant ID specified"});
