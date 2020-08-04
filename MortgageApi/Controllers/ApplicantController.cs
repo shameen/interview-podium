@@ -11,7 +11,7 @@ using PodiumInterview.MortgageApi.Logic;
 using PodiumInterview.MortgageApi.Logic.Command;
 using PodiumInterview.MortgageApi.Logic.Query;
 using PodiumInterview.MortgageApi.Models;
-using Swashbuckle.Swagger.Annotations;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace PodiumInterview.MortgageApi.Controllers
 {
@@ -35,9 +35,9 @@ namespace PodiumInterview.MortgageApi.Controllers
         /// Create an applicant
         /// </summary>
         [HttpPost, Route("")]
-        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(ApiApplicantCreatedResult))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(ApiApplicantCreatedResult))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]
         public async Task<IActionResult> SaveApplicantDetails([FromBody]CreateApplicantModel model)
         {
             //Validate
@@ -72,9 +72,9 @@ namespace PodiumInterview.MortgageApi.Controllers
         /// </summary>
         /// <param name="id">Applicant ID</param>
         [HttpGet, Route("{id}")]
-        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Applicant))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(Applicant))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]
         public IActionResult GetApplicantDetails(long id)
         {
             var applicant = _applicantQuery.GetApplicant(id);
