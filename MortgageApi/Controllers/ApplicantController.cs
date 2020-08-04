@@ -31,6 +31,9 @@ namespace PodiumInterview.MortgageApi.Controllers
             _applicantQuery = applicantQuery;
         }
 
+        /// <summary>
+        /// Create an applicant
+        /// </summary>
         [HttpPost, Route("")]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(ApiApplicantCreatedResult))]
         [SwaggerResponse(HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
@@ -64,7 +67,11 @@ namespace PodiumInterview.MortgageApi.Controllers
             }
         }
 
-        [HttpPost, Route("{id}")]
+        /// <summary>
+        /// Retrieve an applicant
+        /// </summary>
+        /// <param name="id">Applicant ID</param>
+        [HttpGet, Route("{id}")]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Applicant))]
         [SwaggerResponse(HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]

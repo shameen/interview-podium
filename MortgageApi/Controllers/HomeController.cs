@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PodiumInterview.MortgageApi.Controllers
 {
-    public class HomeController : Controller
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public class HomeController : PodiumBaseController
     {
         [HttpGet, Route("")]
         public IActionResult Index()
