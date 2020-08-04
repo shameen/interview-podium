@@ -10,7 +10,11 @@ export default class MainContent extends React.Component {
         }
 
         this.isLoggedIn = this.state.userId != null && this.state.userId > 0;
-        this.loggedInMessage = this.isLoggedIn ? "Logged in as "+this.state.userId : "Not logged in";
+        this.loggedInMessage = this.isLoggedIn ? "Your application reference: "+this.state.userId : "";
+    }
+
+    onUserIdChanged = (userId) => {
+        this.setState({userId: userId})
     }
     
     render = () => {
@@ -20,7 +24,7 @@ export default class MainContent extends React.Component {
 
                 {this.isLoggedIn
                   ? null
-                  : <CreateApplicantForm></CreateApplicantForm>
+                  : <CreateApplicantForm onApplicantCreated={this.onUserIdChanged}></CreateApplicantForm>
                 }
             </div>
         );

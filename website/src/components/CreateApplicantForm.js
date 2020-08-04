@@ -12,6 +12,22 @@ export default class CreateApplicantForm extends React.Component {
             DateOfBirth: undefined
         }
     }
+    componentDidMount = () => {
+        const debugMode = window.location.search.indexOf("debug")>-1;
+        if (debugMode) {
+            this.setState({
+                Email: "s@shameen.info",
+                FirstName: "S",
+                LastName: "A",
+                DateOfBirth: "1990-01-01"
+            })
+        }
+    }
+    onApplicantCreated = () => {
+        if (this.props.onApplicantCreated) {
+            this.props.onApplicantCreated(this.state.UserId)
+        }
+    }
     onInputChange = (event) => {
         const target = event.target;
         this.setState({
@@ -20,13 +36,28 @@ export default class CreateApplicantForm extends React.Component {
     }
     onSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.target);
-        const apiBaseUrl = "http://localhost:32769";
+        const apiBaseUrl = "http://localhost:32775";
         const url = `${apiBaseUrl}/applicant`;
+
+        //Request body
+        const formData = new FormData(event.target);
+        const json = {};
+        formData.forEach((value, key) => {json[key] = value});
+        const requestBody = JSON.stringify(json);
         
         fetch(url, {
             method: 'POST',
-            body: data,
+            body: requestBody,
+            headers: new Headers({"Content-Type": "application/json", "Content-Length": requestBody.length}),
+            cache: 'no-cache'
+        })
+        .then(response => {
+            if (response.ok === false)
+                alert(`Sorry, something went wrong: ${response.status} ${response.statusText}`);
+            else {
+                console.log("Response: "+response.json());
+            }
+            debugger;
         });
     };
     render = () => {
@@ -35,28 +66,34 @@ export default class CreateApplicantForm extends React.Component {
                 <h2>Enter your details to view our mortgages:</h2>
                 
                 <label>
-                    Email: (required)
+                    Email:
                     <input type="email" name="Email" value={this.state.Email}
                         onChange={this.onInputChange}
+                        maxLength="255"
                         required autoFocus />
                 </label>
                 <label>
                     First Name:
                     <input type="text" name="FirstName" 
                         value={this.state.FirstName}
-                        onChange={this.onInputChange} />
+                        onChange={this.onInputChange} 
+                        maxLength="200"
+                        required />
                 </label>
                 <label>
                     Last Name:
                     <input type="text" name="LastName"
                         value={this.state.LastName}
-                        onChange={this.onInputChange} />
+                        onChange={this.onInputChange} 
+                        maxLength="200"
+                        required />
                 </label>
                 <label>
                     Date of Birth:
                     <input type="date" name="DateOfBirth"
                         value={this.state.DateOfBirth}
-                        onChange={this.onInputChange} />
+                        onChange={this.onInputChange} 
+                        required />
                 </label>
                 
                 <button type="submit" className="button button-big">

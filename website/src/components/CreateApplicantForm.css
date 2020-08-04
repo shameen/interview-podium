@@ -9,6 +9,7 @@
     display:block;
     min-width:50%;
     padding:0.35em 0.5em;
+    font-family: sans-serif;
 }
 @media screen and (max-width:768px) {
     .CreateApplicantForm input {
