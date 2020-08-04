@@ -8,21 +8,20 @@ export default class MainContent extends React.Component {
         this.state = {
             userId: null
         }
-
-        this.isLoggedIn = this.state.userId != null && this.state.userId > 0;
-        this.loggedInMessage = this.isLoggedIn ? "Your application reference: "+this.state.userId : "";
     }
+    isLoggedIn = () => this.state && typeof this.state.userId === "number" && this.state.userId > 0;
+    loggedInMessage = () => this.isLoggedIn() ? "Your application reference: "+this.state.userId : "";
 
     onUserIdChanged = (userId) => {
-        this.setState({userId: userId})
+        this.setState({userId: userId});
     }
     
     render = () => {
         return (
             <div className="MainContent">
-                <div className="text-right">{this.loggedInMessage}</div>
+                <div className="text-right">{this.loggedInMessage()}</div>
 
-                {this.isLoggedIn
+                {this.isLoggedIn()
                   ? null
                   : <CreateApplicantForm onApplicantCreated={this.onUserIdChanged}></CreateApplicantForm>
                 }

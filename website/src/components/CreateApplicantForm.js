@@ -45,6 +45,7 @@ export default class CreateApplicantForm extends React.Component {
         formData.forEach((value, key) => {json[key] = value});
         const requestBody = JSON.stringify(json);
         
+        const onError = (err) => Promise.reject(err);
         fetch(url, {
             method: 'POST',
             body: requestBody,
@@ -52,14 +53,20 @@ export default class CreateApplicantForm extends React.Component {
             cache: 'no-cache'
         })
         .then(response => {
-            if (response.ok === false)
-                alert(`Sorry, something went wrong: ${response.status} ${response.statusText}`);
-            else {
-                console.log("Response: "+response.json());
+            if (response.ok === false) {
+                throw alert(`Sorry, something went wrong: ${response.status} ${response.statusText}`);
             }
-            debugger;
-        });
+            else {
+                return response.json();
+            }
+        }, onError)
+        .then(data => {
+            console.log("Parsed data: ",data);
+            this.setState({ UserId: data.userId });
+            this.onApplicantCreated(data.userId);
+        }, onError);
     };
+
     render = () => {
         return (
             <form className="CreateApplicantForm" onSubmit={this.onSubmit}>
