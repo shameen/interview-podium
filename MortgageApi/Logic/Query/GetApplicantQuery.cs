@@ -18,7 +18,7 @@ namespace PodiumInterview.MortgageApi.Logic.Query
 
         public async Task<Applicant> ExecuteAsync()
         {
-            using (var db = new PodiumDbContext())
+            using (var db = PodiumDbContextFactory.GetDbContext())
             {
                 return await db.Applicants.SingleOrDefaultAsync(a => a.Id == _applicantId);
             }

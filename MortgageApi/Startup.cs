@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PodiumInterview.Database;
 using PodiumInterview.MortgageApi.Logic;
 
 namespace PodiumInterview.MortgageApi
@@ -27,6 +29,8 @@ namespace PodiumInterview.MortgageApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<PodiumDbContext>(opt => opt.UseInMemoryDatabase("PodiumInterview"));
+
             services.AddControllers();
             services.AddMvc();
             services.AddSwaggerGen(c =>
@@ -35,7 +39,9 @@ namespace PodiumInterview.MortgageApi
             });
 
             //Register custom interfaces, and their default implementations
+            services.AddTransient<IPodiumDatabaseContext, PodiumDbContext>();
             services.AddTransient<IRandomNumberGenerator, SecureIdGenerator>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

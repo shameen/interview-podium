@@ -20,7 +20,7 @@ namespace PodiumInterview.MortgageApi.Logic.Command
 
         public async Task ExecuteAsync()
         {
-            using (var db = new PodiumDbContext())
+            using (var db = PodiumDbContextFactory.GetDbContext())
             {
                 try
                 {

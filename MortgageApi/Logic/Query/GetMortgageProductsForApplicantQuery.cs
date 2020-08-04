@@ -33,7 +33,7 @@ namespace PodiumInterview.MortgageApi.Logic.Query
             if (isLtvTooHigh)
                 return new List<MortgageProduct>();
 
-            using (var db = new PodiumDbContext())
+            using (var db = PodiumDbContextFactory.GetDbContext())
             {
                 return await db.MortgageProducts
                     .Where(mp => mp.MaximumLoanToValue > loanToValueRatio)
