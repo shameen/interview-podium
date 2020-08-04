@@ -1,5 +1,5 @@
 import React from 'react';
-import "./CreateApplicantForm.css"
+import "./_forms.css"
 
 export default class CreateApplicantForm extends React.Component {
     constructor(props) {
@@ -23,59 +23,66 @@ export default class CreateApplicantForm extends React.Component {
             })
         }
     }
-    onApplicantCreated = () => {
-        if (this.props.onApplicantCreated) {
-            this.props.onApplicantCreated(this.state.UserId)
+    server = {
+        createApplicant: (formElement) => {
+            const url = `${window.ApiBaseUrl}/applicant`;
+
+            //Request body
+            const formData = new FormData(formElement);
+            const json = {};
+            formData.forEach((value, key) => {json[key] = value});
+            const requestBody = JSON.stringify(json);
+            
+            const onError = (err) => Promise.reject(err);
+            return fetch(url, {
+                method: 'POST',
+                body: requestBody,
+                headers: new Headers({"Content-Type": "application/json", "Content-Length": requestBody.length}),
+                cache: 'no-cache'
+            })
+            .then(response => {
+                if (response.ok === false) {
+                    throw alert(`Sorry, something went wrong: ${response.status} ${response.statusText}`);
+                }
+                else {
+                    return response.json();
+                }
+            }, onError)
+            .then(data => {
+                console.log("Parsed data: ",data);
+                this.setState({ UserId: data.userId });
+                this.events.onApplicantCreated(data.userId);
+            }, onError);
         }
     }
-    onInputChange = (event) => {
-        const target = event.target;
-        this.setState({
-            [target.name]: target.value
-        });
+    events = {
+        /** Propagate event to parent */
+        onApplicantCreated: () => {
+            if (this.props.onApplicantCreated) {
+                this.props.onApplicantCreated(this.state.UserId)
+            }
+        },
+        onFormInputChange: (event) => {
+            const target = event.target;
+            this.setState({
+                [target.name]: target.value
+            });
+        },
+        onFormSubmit: (event) => {
+            event.preventDefault();
+            this.server.createApplicant(event.target);
+        }
     }
-    onSubmit = (event) => {
-        event.preventDefault();
-        const apiBaseUrl = "http://localhost:32775";
-        const url = `${apiBaseUrl}/applicant`;
-
-        //Request body
-        const formData = new FormData(event.target);
-        const json = {};
-        formData.forEach((value, key) => {json[key] = value});
-        const requestBody = JSON.stringify(json);
-        
-        const onError = (err) => Promise.reject(err);
-        fetch(url, {
-            method: 'POST',
-            body: requestBody,
-            headers: new Headers({"Content-Type": "application/json", "Content-Length": requestBody.length}),
-            cache: 'no-cache'
-        })
-        .then(response => {
-            if (response.ok === false) {
-                throw alert(`Sorry, something went wrong: ${response.status} ${response.statusText}`);
-            }
-            else {
-                return response.json();
-            }
-        }, onError)
-        .then(data => {
-            console.log("Parsed data: ",data);
-            this.setState({ UserId: data.userId });
-            this.onApplicantCreated(data.userId);
-        }, onError);
-    };
 
     render = () => {
         return (
-            <form className="CreateApplicantForm" onSubmit={this.onSubmit}>
+            <form className="CreateApplicantForm form" onSubmit={this.events.onFormSubmit}>
                 <h2>Enter your details to view our mortgages:</h2>
                 
                 <label>
                     Email:
                     <input type="email" name="Email" value={this.state.Email}
-                        onChange={this.onInputChange}
+                        onChange={this.events.onFormInputChange}
                         maxLength="255"
                         required autoFocus />
                 </label>
@@ -83,7 +90,7 @@ export default class CreateApplicantForm extends React.Component {
                     First Name:
                     <input type="text" name="FirstName" 
                         value={this.state.FirstName}
-                        onChange={this.onInputChange} 
+                        onChange={this.events.onFormInputChange} 
                         maxLength="200"
                         required />
                 </label>
@@ -91,7 +98,7 @@ export default class CreateApplicantForm extends React.Component {
                     Last Name:
                     <input type="text" name="LastName"
                         value={this.state.LastName}
-                        onChange={this.onInputChange} 
+                        onChange={this.events.onFormInputChange} 
                         maxLength="200"
                         required />
                 </label>
@@ -99,7 +106,7 @@ export default class CreateApplicantForm extends React.Component {
                     Date of Birth:
                     <input type="date" name="DateOfBirth"
                         value={this.state.DateOfBirth}
-                        onChange={this.onInputChange} 
+                        onChange={this.events.onFormInputChange} 
                         required />
                 </label>
                 

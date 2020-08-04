@@ -30,7 +30,7 @@ namespace PodiumInterview.MortgageApi.Controllers
         /// Retrieve Mortgage products for an Applicant
         /// </summary>
         /// <param name="id">Applicant ID</param>
-        [HttpGet, Route("{applicantId}")]
+        [HttpPost, Route("{applicantId}")]
         [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(IEnumerable<MortgageProduct>))]
         [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
         [SwaggerResponse((int)HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]
