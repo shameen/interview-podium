@@ -5,18 +5,18 @@ using PodiumInterview.MortgageApi.Logic;
 namespace PodiumInterview.Tests
 {
     [TestClass]
-    public class IdGeneratorTests
+    public class SecureIdGeneratorTests
     {
         /// <remarks>System under test</remarks>
-        private readonly IdGenerator _sut;
+        private readonly SecureIdGenerator _sut;
 
-        public IdGeneratorTests()
+        public SecureIdGeneratorTests()
         {
-            _sut = new IdGenerator();
+            _sut = new SecureIdGenerator();
         }
 
         [TestMethod]
-        public void IdGenerator_GetRandomLong_WhenRunMultipleTimes_ReturnsDifferentResults()
+        public void SecureIdGenerator_GetRandomLong_WhenRunMultipleTimes_ReturnsDifferentResults()
         {
             long randomNumber1 = _sut.GetRandomLong();
             long randomNumber2 = _sut.GetRandomLong();
