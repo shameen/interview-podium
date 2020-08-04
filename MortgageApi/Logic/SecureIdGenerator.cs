@@ -22,7 +22,7 @@ namespace PodiumInterview.MortgageApi.Logic
             {
                 byte[] bytes = new byte[64];
                 rng.GetBytes(bytes);
-                return Convert.ToInt64(bytes);
+                return BitConverter.ToInt64(bytes);
             }
         }
     }

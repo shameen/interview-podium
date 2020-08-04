@@ -19,7 +19,7 @@ namespace PodiumInterview.MortgageApi.Controllers
         /// </summary>
         [ApiExplorerSettings(IgnoreApi = true)]
         [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
-        public IActionResult ApiValidationError(IEnumerable<string> extraErrors = null)
+        internal IActionResult ApiValidationError(IEnumerable<string> extraErrors = null)
         {
             //Construct errors from ModelState
             var errors = ModelState
@@ -38,7 +38,7 @@ namespace PodiumInterview.MortgageApi.Controllers
         /// </summary>
         [ApiExplorerSettings(IgnoreApi = true)]
         [SwaggerResponse((int)HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]
-        public IActionResult ApiServerError(object additionalInfo = null)
+        internal IActionResult ApiServerError(object additionalInfo = null)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, additionalInfo);
         }

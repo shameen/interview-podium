@@ -47,7 +47,7 @@ namespace PodiumInterview.MortgageApi.Controllers
             try
             {
                 //Save to DB
-                var newUserId = _idGenerator.GetRandomLong();
+                var newUserId = Math.Abs(_idGenerator.GetRandomLong());
                 var saveCommand = new SaveApplicantCommand(model, newUserId);
                 await saveCommand.ExecuteAsync();
 

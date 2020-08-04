@@ -27,7 +27,7 @@ namespace PodiumInterview.MortgageApi.Logic.Command
                     _applicantDb = new Applicant()
                     {
                         CreationDate = DateTimeOffset.Now,
-                        DateOfBirth = _applicantModel.DateOfBirth,
+                        DateOfBirth = _applicantModel.DateOfBirth.Date,
                         Email = _applicantModel.Email,
                         FirstName = _applicantModel.FirstName,
                         LastName = _applicantModel.LastName,
