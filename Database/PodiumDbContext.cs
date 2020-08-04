@@ -11,16 +11,10 @@ namespace PodiumInterview.Database
             //Re-create Database every time + Seed
             Database.EnsureDeleted();
             Database.EnsureCreated();
+            new DataSeeder(this).Seed();
         }
         public virtual DbSet<Applicant> Applicants { get; set; }
         public virtual DbSet<Lender> Lenders { get; set; }
         public virtual DbSet<MortgageProduct> MortgageProducts { get; set; }
-    }
-
-    public interface IPodiumDatabaseContext
-    {
-        DbSet<Applicant> Applicants { get; set; }
-        DbSet<Lender> Lenders { get; set; }
-        DbSet<MortgageProduct> MortgageProducts { get; set; }
     }
 }

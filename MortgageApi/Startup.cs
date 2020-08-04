@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PodiumInterview.MortgageApi.Logic;
 
 namespace PodiumInterview.MortgageApi
 {
@@ -32,6 +33,9 @@ namespace PodiumInterview.MortgageApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mortgage API", Version = "v1" });
             });
+
+            //Register custom interfaces, and their default implementations
+            services.AddTransient<IRandomNumberGenerator, SecureIdGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
