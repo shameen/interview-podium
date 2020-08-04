@@ -35,7 +35,7 @@ namespace PodiumInterview.MortgageApi.Controllers
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(ApiApplicantCreatedResult))]
         [SwaggerResponse(HttpStatusCode.BadRequest, Type = typeof(ApiErrorResult))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, Type = typeof(ApiErrorResult))]
-        public IActionResult SaveApplicantDetails([FromBody]CreateApplicantModel model)
+        public async Task<IActionResult> SaveApplicantDetails([FromBody]CreateApplicantModel model)
         {
             //Validate
             if (!ModelState.IsValid)
@@ -48,7 +48,7 @@ namespace PodiumInterview.MortgageApi.Controllers
                 //Save to DB
                 var newUserId = _idGenerator.GetRandomLong();
                 var saveCommand = new SaveApplicantCommand(model, newUserId);
-                saveCommand.Execute();
+                await saveCommand.ExecuteAsync();
 
                 //Return
                 var result = new ApiApplicantCreatedResult
