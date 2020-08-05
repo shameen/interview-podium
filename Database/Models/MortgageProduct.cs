@@ -9,7 +9,7 @@ namespace PodiumInterview.Database
 		public long LenderId { get; set; }
 		public decimal InterestRate { get; set; }
 		public InterestRateTypes InterestRateType { get; set; }
-		public decimal? MaximumLoanToValue { get; set; }
+		public decimal MaximumLoanToValue { get; set; }
 		public DateTimeOffset CreationDate { get; set; }
 
 		[ForeignKey("LenderId")]

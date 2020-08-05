@@ -11,6 +11,10 @@ export default class MortgageProductForm extends React.Component {
         }
     }
 
+    loanToValueRatio = () => this.state
+        ? (this.state.PropertyValue - this.state.DepositAmount) / this.state.PropertyValue
+        : 0;
+
     server = {
         searchMortgageProducts: () => {
             const url = `${window.ApiBaseUrl}/MortgageProduct/${this.props.applicantId}`;
@@ -20,7 +24,6 @@ export default class MortgageProductForm extends React.Component {
                 PropertyValue: this.state.PropertyValue,
                 DepositAmount: this.state.DepositAmount
             });
-            debugger;
             const onError = (err) => Promise.reject(err);
             return fetch(url, {
                 method: 'POST',
@@ -82,7 +85,12 @@ export default class MortgageProductForm extends React.Component {
                         value={this.state.DepositAmount}
                         required />
                 </label>
-                <button>Go</button>
+
+                <button className="button button-big">Go</button>
+                {typeof this.loanToValueRatio() === "number" && !isNaN(this.loanToValueRatio())
+                    ? <em>(Loan-to-Value ratio: {this.loanToValueRatio().toFixed(2)})</em>
+                    : "" }
+                
             </form>
         );
     }
