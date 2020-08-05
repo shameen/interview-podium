@@ -13,17 +13,6 @@ export default class CreateApplicantForm extends React.Component {
             DateOfBirth: undefined
         }
     }
-    componentDidMount = () => {
-        const debugMode = window.location.search.indexOf("debug")>-1;
-        if (debugMode) {
-            this.setState({
-                Email: "s@shameen.info",
-                FirstName: "S",
-                LastName: "A",
-                DateOfBirth: "1990-01-01"
-            })
-        }
-    }
     server = {
         createApplicant: (formElement) => {
             const url = `${window.ApiBaseUrl}/applicant`;
