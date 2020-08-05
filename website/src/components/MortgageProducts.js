@@ -20,6 +20,7 @@ export default class MortgageProductsPage extends React.Component {
                 <MortgageProductForm
                     applicantId={this.props.applicantId}
                     onMortgageProductDataChanged={this.onMortgageProductDataChanged}></MortgageProductForm>
+                <hr />
                 <MortgageProductResults
                     mortgageProductData={this.state.mortgageProducts}></MortgageProductResults>
             </div>

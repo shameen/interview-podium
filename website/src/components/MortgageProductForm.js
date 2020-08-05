@@ -64,6 +64,20 @@ export default class MortgageProductForm extends React.Component {
         },
         onFormSubmit: (event) => {
             event.preventDefault();
+
+            //validation
+            let errors = [];
+            if(!(typeof this.state.DepositAmount === "number" && this.state.DepositAmount > 0))
+                errors.push("Please fill in your deposit amount");
+            if(!(typeof this.state.PropertyValue === "number" && this.state.PropertyValue > 0))
+                errors.push("Please fill in your property value");
+            if (this.state.DepositAmount > this.state.PropertyValue)
+                errors.push("Deposit amount should be less than the property value");
+            if (errors.length) {
+                alert("We think you missed something: \n"+errors.join("\n"));
+                return;
+            };
+
             this.server.searchMortgageProducts();
         }
     }

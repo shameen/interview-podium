@@ -70,6 +70,18 @@ export default class CreateApplicantForm extends React.Component {
         },
         onFormSubmit: (event) => {
             event.preventDefault();
+
+            //validation
+            let errors = [];
+            if (this.state.Email.length === 0) errors.push("Please enter an Email");
+            if (this.state.FirstName.length === 0) errors.push("Please enter a First Name");
+            if (this.state.LastName.length === 0) errors.push("Please enter a Last Name");
+            if (this.state.DateOfBirth === null) errors.push("Please enter a Date of Birth");
+            if (errors.length) {
+                alert("We think you missed something: \n"+errors.join("\n"));
+                return;
+            }
+
             this.server.createApplicant(event.target);
         }
     }

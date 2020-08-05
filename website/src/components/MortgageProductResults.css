@@ -1,0 +1,8 @@
+em {
+    color: #999;
+    margin-left:1.25em;
+}
+.MortgageProductResults table, .MortgageProductResults tr, .MortgageProductResults td, .MortgageProductResults th {
+    border: solid 1px #DDD;
+    padding: 0.2em;
+}
