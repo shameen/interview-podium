@@ -83,7 +83,7 @@ namespace PodiumInterview.MortgageApi.Controllers
             if (applicant == null)
                 return ApiValidationError(new [] {"Invalid Applicant ID specified"});
 
-            return Ok();
+            return Ok(applicant);
         }
     }
 }
