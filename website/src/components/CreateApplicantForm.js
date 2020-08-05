@@ -1,5 +1,6 @@
 import React from 'react';
 import "./_forms.css"
+import HttpRequestHelper from "../util/HttpRequestHelper";
 
 export default class CreateApplicantForm extends React.Component {
     constructor(props) {
@@ -26,33 +27,18 @@ export default class CreateApplicantForm extends React.Component {
     server = {
         createApplicant: (formElement) => {
             const url = `${window.ApiBaseUrl}/applicant`;
+            const json = {
+                Email: this.state.Email,
+                FirstName: this.state.FirstName,
+                LastName: this.state.LastName,
+                DateOfBirth: this.state.DateOfBirth
+            }
 
-            //Request body
-            const formData = new FormData(formElement);
-            const json = {};
-            formData.forEach((value, key) => {json[key] = value});
-            const requestBody = JSON.stringify(json);
-            
-            const onError = (err) => Promise.reject(err);
-            return fetch(url, {
-                method: 'POST',
-                body: requestBody,
-                headers: new Headers({"Content-Type": "application/json", "Content-Length": requestBody.length}),
-                cache: 'no-cache'
-            })
-            .then(response => {
-                if (response.ok === false) {
-                    throw alert(`Sorry, something went wrong: ${response.status} ${response.statusText}`);
-                }
-                else {
-                    return response.json();
-                }
-            }, onError)
-            .then(data => {
-                console.log("Parsed data: ",data);
+            HttpRequestHelper.PostJsonToUrl(json, url)
+            .then((data) => {
                 this.setState({ UserId: data.userId });
                 this.events.onApplicantCreated(data.userId);
-            }, onError);
+            });
         }
     }
     events = {

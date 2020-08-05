@@ -1,5 +1,6 @@
 import React from "react";
 import "./_forms.css";
+import HttpRequestHelper from "../util/HttpRequestHelper";
 
 export default class MortgageProductForm extends React.Component {
     constructor(props) {
@@ -18,32 +19,16 @@ export default class MortgageProductForm extends React.Component {
     server = {
         searchMortgageProducts: () => {
             const url = `${window.ApiBaseUrl}/MortgageProduct/${this.props.applicantId}`;
-
-            //Request body
-            const requestBody = JSON.stringify({
+            const json = {
                 PropertyValue: this.state.PropertyValue,
                 DepositAmount: this.state.DepositAmount
-            });
-            const onError = (err) => Promise.reject(err);
-            return fetch(url, {
-                method: 'POST',
-                cache: 'no-cache',
-                body: requestBody,
-                headers: new Headers({"Content-Type": "application/json", "Content-Length": requestBody.length}),
-            })
-            .then(response => {
-                if (response.ok === false) {
-                    throw alert(`Sorry, something went wrong: ${response.status} ${response.statusText}`);
-                }
-                else {
-                    return response.json();
-                }
-            }, onError)
-            .then(data => {
-                console.log("Parsed data: ",data);
+            };
+            
+            HttpRequestHelper.PostJsonToUrl(json, url)
+            .then((data) => {
                 this.setState({ mortgageProducts: data });
                 this.events.onFetchMortgageProductsCompleted(data.userId);
-            }, onError);
+            });
         }
     }
     events = {
