@@ -9,8 +9,11 @@
   background: white url("/Group-2747.jpg");
 }
 
-.header-logo-suffix {
-  color:white;
+.header {
+  color: white;
+}
+
+.header .header-logo-suffix {
   margin-left:1em;
   text-transform: uppercase;
 }
