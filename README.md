@@ -1,6 +1,5 @@
-# interview-podium
-Case Study - Mortgage applicant
-
+# interview-mortgage-fullstack
+Mortgage application UI (React) + API (.NET Core)
 
 # Requirements
 
